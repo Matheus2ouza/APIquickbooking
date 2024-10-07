@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt');
 const { body, validationResult } = require('express-validator');
 
 const register = [
-    body('username').isString().trim().escape().notEmpty().withMessage('o Usuario não pode estar vazio'),
-    body('email').isString().trim().escape().notEmpty().withMessage('o Email não pode estar vazio'),
-    body('password').isString().trim().escape().notEmpty().withMessage('o Password não pode estar vazio'),
+    body('username').isString().trim().escape().notEmpty().withMessage('o Usuario nï¿½o pode estar vazio'),
+    body('email').isString().trim().escape().notEmpty().withMessage('o Email nï¿½o pode estar vazio'),
+    body('password').isString().trim().escape().notEmpty().withMessage('o Password nï¿½o pode estar vazio'),
 
     async (req, res) => {
         const errors = validationResult(req);
@@ -20,27 +20,27 @@ const register = [
         try {
             const userExist = await pool.query('SELECT * from users WHERE username = $1', [username]);
             if (userExist.rows.length > 0) {
-                console.warn(`Username já em uso: ${username}`);
-                return res.status(400).json({ message: 'username já em uso' });
+                console.warn(`username already in use: ${username}`);
+                return res.status(400).json({ message: 'username already in use' });
             }
 
             const emailExist = await pool.query('SELECT * from users WHERE email = $1', [email]);
             if (emailExist.rows.length > 0) {
-                console.warn(`Email já em uso: ${email}`);
-                return res.status(400).json({ message: 'email já em uso' });
+                console.warn(`Email already in use: ${email}`);
+                return res.status(400).json({ message: 'email already in use' });
             }
 
             const hashedPassword = await bcrypt.hash(password, 10);
-            console.log(`Dados aceitos... Cadastrando usuario`);
+            console.log(`Data accepted... Registering user`);
 
             const result = await pool.query('INSERT INTO users (username, email, password) VALUES($1, $2, $3)', 
                 [username, email, hashedPassword]
             );
-	    console.info('Usuario cadastrado com sucesso');
-            res.status(201).json({ message: 'Usuario cadastrado com sucesso!' });
+	    console.info('User registered successfully');
+            res.status(201).json({ message: 'User registered successfully' });
         } catch (err) {
             console.error('Server error:', err);
-            res.status(500).json({ message: 'Erro interno do servidor' });
+            res.status(500).json({ message: 'Internal Server Error' });
         }
     }
 ];
