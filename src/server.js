@@ -19,7 +19,7 @@ app.use(cors({
 
 app.use(bodyParser.json());
 
-// CabeÁalhos de SeguranÁa
+// Cabe√ßalhos de Seguran√ßa
 app.use((req, res, next) => {
     res.setHeader(
         'Content-Security-Policy',
@@ -34,7 +34,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// Verificar conex„o com o banco de dados ao iniciar o servidor
+// Verificar conex√ßo com o banco de dados ao iniciar o servidor
 checkDatabaseConnection();
 
 // Rotas
