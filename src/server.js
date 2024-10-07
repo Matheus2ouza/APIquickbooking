@@ -1,5 +1,3 @@
-const https = require('https');
-const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors'); // Importe o pacote CORS
@@ -34,21 +32,15 @@ app.use((req, res, next) => {
     next();
 });
 
-// Verificar conexço com o banco de dados ao iniciar o servidor
+// Verificar conexão com o banco de dados ao iniciar o servidor
 checkDatabaseConnection();
 
 // Rotas
 app.post('/register', register);
 app.post('/loginUser', loginUser);
 
-// Carregue a chave e o certificado SSL
-const options = {
-    key: fs.readFileSync(process.env.SSL_KEY),
-    cert: fs.readFileSync(process.env.SSL_CERT),
-};
-
-// Iniciar o servidor HTTPS
-const port = process.env.PORT;
-https.createServer(options, app).listen(port, () => {
-    console.log(`Servidor rodando com sucesso...`);
+// Iniciar o servidor HTTP
+const port = process.env.PORT || 3000; // Use a porta padrão para desenvolvimento
+app.listen(port, () => {
+    console.log(`Servidor rodando com sucesso na porta ${port}...`);
 });
