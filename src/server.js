@@ -42,5 +42,5 @@ app.post('/loginUser', loginUser);
 // Iniciar o servidor HTTP
 const port = process.env.PORT || 3000; // Use a porta padrão para desenvolvimento
 app.listen(port, () => {
-    console.log(`Servidor rodando com sucesso na porta ${port}...`);
+    console.info(`Servidor rodando com sucesso na porta ${port}...`);
 });
