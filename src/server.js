@@ -33,6 +33,11 @@ app.use((req, res, next) => {
 // Verificar conexão com o banco de dados ao iniciar o servidor
 checkDatabaseConnection();
 
+app.get('/test', (req, res) => {
+    console.info('Rota /test acessada');
+    res.send('Teste funcionando!');
+});
+
 // Rotas
 app.post('/register', register);
 app.post('/loginUser', loginUser);
