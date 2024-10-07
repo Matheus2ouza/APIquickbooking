@@ -10,10 +10,6 @@ const pool = new Pool({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     database: process.env.DB_NAME,
-    ssl: {
-        ca: process.DB_SSL_CERT, // Inclui o certificado CA
-        rejectUnauthorized: false // Certifica-se de que o certificado do servidor é válido
-    }
 });
 
 const checkDatabaseConnection = async () => {
