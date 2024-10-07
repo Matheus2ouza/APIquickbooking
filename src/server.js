@@ -37,8 +37,13 @@ checkDatabaseConnection();
 app.post('/register', register);
 app.post('/loginUser', loginUser);
 
+// Middleware para capturar rotas não definidas
+app.use((req, res) => {
+    res.status(404).send('Rota não encontrada!');
+});
+
 // Iniciar o servidor HTTP
-const port = process.env.PORT; // Use a porta padrão para desenvolvimento
+const port = process.env.PORT || 3000; // Use a porta padrão para desenvolvimento
 app.listen(port, () => {
     console.info(`Servidor rodando com sucesso na porta ${port}...`);
 });
