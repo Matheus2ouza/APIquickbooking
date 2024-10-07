@@ -31,7 +31,7 @@ const register = [
             }
 
             const hashedPassword = await bcrypt.hash(password, 10);
-            console.log(`Data accepted... Registering user`);
+            console.info(`Data accepted, Registering user...`);
 
             const result = await pool.query('INSERT INTO users (username, email, password) VALUES($1, $2, $3)', 
                 [username, email, hashedPassword]

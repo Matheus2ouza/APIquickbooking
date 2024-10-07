@@ -33,7 +33,7 @@ const loginUser = [
                 return res.status(401).json({ message: 'Invalid password' });
             }
 
-            console.log(`User successfully validated: ${email}`);
+            console.info(`User successfully validated: ${email}`);
             res.status(201).json({ message: 'User successfully validated' });
         } catch (err) {
             console.error('Server error:', err);

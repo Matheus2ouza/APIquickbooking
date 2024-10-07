@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors'); // Importe o pacote CORS
 const { checkDatabaseConnection } = require('./db/db');
 const { register } = require('./dbFunctions/addUser');
 const { loginUser } = require('./dbFunctions/loginUser');
@@ -8,14 +7,13 @@ require('dotenv').config();
 
 const app = express();
 
-// Habilite CORS
-app.use(cors({
-    origin: 'http://127.0.0.1:3000',
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
-}));
-
 app.use(bodyParser.json());
+
+// Middleware para registrar requisições
+app.use((req, res, next) => {
+    console.info(`Requisição recebida: ${req.method} ${req.url}`);
+    next();
+});
 
 // Cabeçalhos de Segurança
 app.use((req, res, next) => {
@@ -40,7 +38,7 @@ app.post('/register', register);
 app.post('/loginUser', loginUser);
 
 // Iniciar o servidor HTTP
-const port = process.env.PORT || 3000; // Use a porta padrão para desenvolvimento
+const port = process.env.PORT; // Use a porta padrão para desenvolvimento
 app.listen(port, () => {
     console.info(`Servidor rodando com sucesso na porta ${port}...`);
 });
