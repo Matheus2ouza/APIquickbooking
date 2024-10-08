@@ -1,4 +1,4 @@
-const { pool } = require('../db/db');
+const { pool } = require('../db/dbP');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 

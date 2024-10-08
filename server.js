@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { checkDatabaseConnection } = require('./db/db');
-const { register } = require('./dbFunctions/addUser');
-const { loginUser } = require('./dbFunctions/loginUser');
+const { checkDatabaseConnection } = require('./src/db/dbP');
+const { register } = require('./src/dbFunctions/addUser');
+const { loginUser } = require('./src/dbFunctions/loginUser');
 require('dotenv').config();
 
 const app = express();
@@ -32,11 +32,6 @@ app.use((req, res, next) => {
 
 // Verificar conexão com o banco de dados ao iniciar o servidor
 checkDatabaseConnection();
-
-app.get('/test', (req, res) => {
-    console.info('Rota /test acessada');
-    res.send('Teste funcionando!');
-});
 
 // Rotas
 app.post('/register', register);
