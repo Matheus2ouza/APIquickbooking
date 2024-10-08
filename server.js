@@ -1,8 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { checkDatabaseConnection } = require('./src/db/dbP');
-const { register } = require('./src/dbFunctions/addUser');
-const { loginUser } = require('./src/dbFunctions/loginUser');
+const { register } = require('./src/routers/addUser');
+const { loginUser } = require('./src/routers/loginUser');
+const { verifyEmail } = require('./src/routers/verifyEmail'); 
 require('dotenv').config();
 
 const app = express();
@@ -12,19 +13,16 @@ app.use(bodyParser.json());
 const cors = require('cors');
 
 app.use(cors({
-    origin: '*', // Permite todas as origens (domínios)
-    methods: 'GET,POST', // Permite apenas GET e POST
-    allowedHeaders: 'Content-Type' // Permite cabeçalhos de conteúdo
+    origin: '*', 
+    methods: 'GET,POST', 
+    allowedHeaders: 'Content-Type'
 }));
 
-
-// Middleware para registrar requisições
 app.use((req, res, next) => {
     console.info(`Requisição recebida: ${req.method} ${req.url}`);
     next();
 });
 
-// Cabeçalhos de Segurança
 app.use((req, res, next) => {
     res.setHeader(
         'Content-Security-Policy',
@@ -39,15 +37,14 @@ app.use((req, res, next) => {
     next();
 });
 
-// Verificar conexão com o banco de dados ao iniciar o servidor
 checkDatabaseConnection();
 
 // Rotas
 app.post('/register', register);
 app.post('/loginUser', loginUser);
+app.get('/verify', verifyEmail); 
 
-// Iniciar o servidor HTTP
-const port = process.env.PORT || 3000; // Use a porta padrão para desenvolvimento
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.info(`Servidor rodando com sucesso na porta ${port}...`);
 });
