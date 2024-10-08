@@ -87,3 +87,5 @@ const sendVerificationEmail = async (email, verificationLink) => {
         console.error('Erro ao enviar email:', error);
     }
 };
+
+module.exports = { sendVerificationEmail };
