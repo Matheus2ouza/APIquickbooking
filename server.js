@@ -9,6 +9,15 @@ const app = express();
 
 app.use(bodyParser.json());
 
+const cors = require('cors');
+
+app.use(cors({
+    origin: '*', // Permite todas as origens (domínios)
+    methods: 'GET,POST', // Permite apenas GET e POST
+    allowedHeaders: 'Content-Type' // Permite cabeçalhos de conteúdo
+}));
+
+
 // Middleware para registrar requisições
 app.use((req, res, next) => {
     console.info(`Requisição recebida: ${req.method} ${req.url}`);
