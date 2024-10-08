@@ -1,6 +1,6 @@
 const { pool } = require('../db/dbP');
 const { body, validationResult } = require('express-validator');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const loginUser = [
     body('email').isString().trim().escape().notEmpty().withMessage('O Email n�o pode estar vazio'),

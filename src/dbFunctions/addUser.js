@@ -1,5 +1,5 @@
 const { pool } = require('../db/dbP');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { body, validationResult } = require('express-validator');
 
 const register = [
