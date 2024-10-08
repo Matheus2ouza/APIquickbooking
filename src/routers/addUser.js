@@ -55,10 +55,20 @@ const register = [
             );
 
             // Cria o link de verificação
-            const verificationLink = `https://seu-site.com/verify?token=${token}&id=${userId}`;
+            const verificationLink = `https://ap-iquickbooking.vercel.app/verify?token=${token}&id=${userId}`;
+
+            // Log do link de verificação
+            console.info('Link de verificação gerado:', verificationLink);
 
             // Envia o e-mail de verificação
-            await sendVerificationEmail(email, verificationLink);
+            const emailSent = await sendVerificationEmail(email, verificationLink);
+            
+            // Log para verificar se o e-mail foi enviado
+            if (emailSent) {
+                console.info(`E-mail de verificação enviado para ${email}`);
+            } else {
+                console.error(`Falha ao enviar o e-mail de verificação para ${email}`);
+            }
 
             return res.status(201).json({ message: 'Usuário registrado. Verifique seu e-mail para ativar a conta.' });
         } catch (err) {

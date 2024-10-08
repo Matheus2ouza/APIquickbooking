@@ -83,8 +83,11 @@ const sendVerificationEmail = async (email, verificationLink) => {
     try {
         await sgMail.send(msg);
         console.log('Email de verificação enviado com sucesso!');
+        return true; // Retorna true se o email foi enviado com sucesso
     } catch (error) {
-        console.error('Erro ao enviar email:', error);
+        // Captura detalhes do erro e registra
+        console.error('Erro ao enviar email:', error.response ? error.response.body : error.message);
+        return false; // Retorna false se houve um erro ao enviar o email
     }
 };
 
