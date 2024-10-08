@@ -1,10 +1,11 @@
-const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SENDGRID_API_KEY); // Sua chave da API do SendGrid
+const mailgun = require("mailgun-js");
+const DOMAIN = 'quickbooking.rf.gd';
+const mg = mailgun({ apiKey: process.env.MAILGUN_API_KEY, domain: DOMAIN });
 
 const sendVerificationEmail = async (email, verificationLink) => {
-    const msg = {
+    const data = {
+        from: 'noreply@quickbooking.rf.gd', // Use um e-mail do seu domínio
         to: email,
-        from: 'quickbooking.org@gmail.com', // Substitua pelo seu email
         subject: 'Verifique seu Email - QuickBooking',
         html: `
             <!DOCTYPE html>
@@ -23,7 +24,6 @@ const sendVerificationEmail = async (email, verificationLink) => {
                         background-color: #f4f4f4;
                         padding: 20px;
                     }
-
                     .container {
                         padding: 20px;
                         text-align: left; /* Alinha o texto à esquerda dentro do contêiner */
@@ -34,7 +34,6 @@ const sendVerificationEmail = async (email, verificationLink) => {
                         border-radius: 5px; /* Cantos arredondados */
                         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra do contêiner */
                     }
-
                     .title {
                         font-size: 2rem;
                         font-weight: bold;
@@ -42,7 +41,6 @@ const sendVerificationEmail = async (email, verificationLink) => {
                         cursor: pointer;
                         text-decoration: none;
                     }
-
                     button {
                         background-color: #1f6dae; /* Cor do botão */
                         color: white;
@@ -54,7 +52,6 @@ const sendVerificationEmail = async (email, verificationLink) => {
                         margin: 4px 2px;
                         cursor: pointer;
                     }
-
                     a {
                         word-wrap: break-word; /* Permite que o link quebre em várias linhas se for muito longo */
                         overflow-wrap: break-word; /* Alternativa para garantir que links longos não saiam do contêiner */
@@ -81,12 +78,12 @@ const sendVerificationEmail = async (email, verificationLink) => {
     };
 
     try {
-        await sgMail.send(msg);
+        await mg.messages().send(data);
         console.log('Email de verificação enviado com sucesso!');
         return true; // Retorna true se o email foi enviado com sucesso
     } catch (error) {
         // Captura detalhes do erro e registra
-        console.error('Erro ao enviar email:', error.response ? error.response.body : error.message);
+        console.error('Erro ao enviar email:', error);
         return false; // Retorna false se houve um erro ao enviar o email
     }
 };
