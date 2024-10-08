@@ -1,7 +1,6 @@
 const { pool } = require('../db/dbP');
 const bcrypt = require('bcryptjs');
 const { body, validationResult } = require('express-validator');
-const jwt = require('jsonwebtoken');
 const { sendVerificationEmail } = require('./sendEmail'); // ajuste conforme o necessário
 const crypto = require('crypto'); // Para gerar tokens aleatórios
 
