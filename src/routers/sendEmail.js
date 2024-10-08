@@ -1,6 +1,6 @@
 const mailgun = require("mailgun-js");
 const DOMAIN = 'quickbooking.rf.gd';
-const mg = mailgun({ apiKey: process.env.MAILGUN_API_KEY, domain: DOMAIN });
+const mg = mailgun({ apiKey: process.env.API_KEY, domain: DOMAIN });
 
 const sendVerificationEmail = async (email, verificationLink) => {
     const data = {
