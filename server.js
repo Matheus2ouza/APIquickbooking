@@ -3,7 +3,9 @@ const bodyParser = require('body-parser');
 const { checkDatabaseConnection } = require('./src/db/dbP');
 const { register } = require('./src/routers/addUser');
 const { loginUser } = require('./src/routers/loginUser');
-const { verifyEmail } = require('./src/routers/verifyEmail'); 
+const { verifyEmail } = require('./src/routers/verifyEmail');
+const path = require('path');
+
 require('dotenv').config();
 
 const app = express();
