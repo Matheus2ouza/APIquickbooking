@@ -8,7 +8,7 @@ require('dotenv').config();
 
 const app = express();
 
-app.use('/favicon.png', express.static(path.join(__dirname, 'img', 'LOGO VETORIZADA sem fundo.png')));
+app.use('LOGO VETORIZADA sem fundo.png', express.static(path.join(__dirname, 'img', 'LOGO VETORIZADA sem fundo.png')));
 
 app.use(bodyParser.json());
 
