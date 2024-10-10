@@ -3,8 +3,8 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 
 const loginUser = [
-    body('email').isString().trim().escape().notEmpty().withMessage('O Email n�o pode estar vazio'),
-    body('password').isString().trim().escape().notEmpty().withMessage('A Senha n�o pode estar vazia'),
+    body('email').isString().trim().escape().notEmpty().withMessage('O Email não pode estar vazio'),
+    body('password').isString().trim().escape().notEmpty().withMessage('A Senha não pode estar vazia'),
 
     async (req, res) => {
         const errors = validationResult(req); // Verifica se houve erros de valida��o
