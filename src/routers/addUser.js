@@ -34,15 +34,10 @@ const register = [
 
             // Insere o usuário na tabela 'users'
             const userResult = await pool.query(
-                'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id',
+                'INSERT INTO users (username, email, password) VALUES ($1, $2, $3)',
                 [username, email, hashedPassword]
             );
 
-            // Insere o token na tabela 'tokens_verificacao'
-            await pool.query(
-                'INSERT INTO tokens_verificacao (users_id, token, data_expiracao) VALUES ($1, $2, $3)',
-                [userId, token, expiresAt]
-            );
             console.log(`Registered user ${username}`)
             return res.status(201).json({ message: 'Registered user...'});
         } catch (err) {
