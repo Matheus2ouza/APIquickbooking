@@ -38,8 +38,9 @@ const register = [
                 [username, email, hashedPassword]
             );
             //extrai o id do user
-            const userId = userResult.rows[0].Id;
+            const userId = userResult.rows[0].id; 
             console.log(`Registered user ${username}`)
+            console.log(`Id do user ${userId}`)
             return res.status(201).json({ message: 'Registered user...', userId});
         } catch (err) {
             console.error('Server error:', err);
