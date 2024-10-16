@@ -32,14 +32,15 @@ const register = [
             // Hash da senha
             const hashedPassword = await bcrypt.hash(password, 10);
 
-            // Insere o usuário na tabela 'users'
+            // Insere o usuário na tabela 'users' e retorna o id do user
             const userResult = await pool.query(
-                'INSERT INTO users (username, email, password) VALUES ($1, $2, $3)',
+                'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id',
                 [username, email, hashedPassword]
             );
-
+            //extrai o id do user
+            const userId = userResult.rows[0].Id;
             console.log(`Registered user ${username}`)
-            return res.status(201).json({ message: 'Registered user...'});
+            return res.status(201).json({ message: 'Registered user...', userId});
         } catch (err) {
             console.error('Server error:', err);
             return res.status(500).json({ message: 'Server error' });
