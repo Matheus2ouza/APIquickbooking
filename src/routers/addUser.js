@@ -20,12 +20,14 @@ const register = [
             // Verifica se o nome de usuário já existe
             const userExist = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
             if (userExist.rows.length > 0) {
+                console.log(`${username} já esta em uso`)
                 return res.status(400).json({ message: 'username already in use' });
             }
-
+            
             // Verifica se o email já está cadastrado
             const emailExist = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
             if (emailExist.rows.length > 0) {
+                console.log(`${email} já esta em uso`)
                 return res.status(400).json({ message: 'Email is already in use' });
             }
 
