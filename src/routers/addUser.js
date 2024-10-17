@@ -1,11 +1,12 @@
 const { pool } = require('../db/dbP');
 const bcrypt = require('bcryptjs');
 const { body, validationResult } = require('express-validator');
+const { requiredField } = require('./registerCompany')
 
 const register = [
-    body('username').isString().trim().escape().notEmpty().withMessage('O usuário não pode estar vazio'),
-    body('email').isEmail().normalizeEmail().notEmpty().withMessage('O email não pode estar vazio'),
-    body('password').isString().trim().escape().notEmpty().withMessage('A senha não pode estar vazia'),
+    requiredField('username'),
+    requiredField('email'),
+    requiredField('password'),
 
     async (req, res) => {
         const errors = validationResult(req);

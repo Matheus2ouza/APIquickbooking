@@ -60,4 +60,4 @@ const company = [
     }
 ];
 
-module.exports = { company }
+module.exports = { company, requiredField }

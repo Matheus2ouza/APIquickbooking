@@ -1,10 +1,11 @@
 const { pool } = require('../db/dbP');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
+const { requiredField } = require('./registerCompany')
 
 const loginUser = [
-    body('email').isString().trim().escape().notEmpty().withMessage('O Email não pode estar vazio'),
-    body('password').isString().trim().escape().notEmpty().withMessage('A Senha não pode estar vazia'),
+    requiredField('email'),
+    requiredField('password'),
 
     async (req, res) => {
         const errors = validationResult(req); // Verifica se houve erros de valida��o
