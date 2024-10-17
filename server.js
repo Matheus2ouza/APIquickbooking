@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const { checkDatabaseConnection } = require('./src/db/dbP');
 const { register } = require('./src/routers/addUser');
 const { loginUser } = require('./src/routers/loginUser');
+const { company } = require('./src/routers/registerCompany')
 const path = require('path');
 
 require('dotenv').config();
@@ -45,6 +46,7 @@ checkDatabaseConnection();
 // Rotas
 app.post('/register', register);
 app.post('/loginUser', loginUser);
+app.post('/company', company)
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
